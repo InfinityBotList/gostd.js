@@ -1,0 +1,16 @@
+{
+  "name": "lzwgo",
+  "version": "0.1.0",
+  "description": "LzwGO is a port of compress/lzw from Go's standard library. It implements the Lempel-Ziv-Welch compressed data format as used by the GIF and PDF file formats, which means variable-width codes up to 12 bits and the first two non-literal codes are a clear code and an EOF code.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "testReadLzw": "ts-node ./src/builtins/tests/testReadLzw"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "typescript": "^5.2.2"
+  }
+}

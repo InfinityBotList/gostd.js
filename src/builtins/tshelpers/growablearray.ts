@@ -19,7 +19,7 @@ export class GrowableUint8Array {
         return this._length;
     }
 
-    get underlyingArray(): Uint8Array {
+    get array(): Uint8Array {
         return this._array.subarray(0, this._array.length);
     }
     

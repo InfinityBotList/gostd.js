@@ -1,6 +1,6 @@
 // Decodes a LZW-encoded buffer (LSB first)
 // Taken from https://cs.opensource.google/go/go/+/refs/tags/go1.21.3:src/compress/lzw/reader.go;l=254
-import { uint8Copy } from "../builtins/tshelpers"
+import { uint8Copy } from "../builtins/tshelpers/arrays"
 import { ByteReader, Errors as IOErrors, Reader } from "../io"
 
 const maxWidth = 12

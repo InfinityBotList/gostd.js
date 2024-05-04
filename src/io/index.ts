@@ -148,6 +148,20 @@ export interface WriterTo {
     WriteTo(w: Writer): [number, Error | null]
 }
 
+/**
+ * ReadCloser is the interface that groups the basic Read and Close methods.
+ */
+export interface ReadCloser extends Reader, Closer {}
+
+/**
+ * WriteCloser is the interface that groups the basic Write and Close methods.
+ */
+export interface WriteCloser extends Writer, Closer {}
+
+/**
+ * ReadWriteCloser is the interface that groups the basic Read, Write and Close methods.
+ */
+export interface ReadWriteCloser extends Reader, Writer, Closer {}
 
 /**
  * A LimitedReader reads from R but limits the amount of
@@ -324,4 +338,35 @@ export function ReadAll(r: Reader): [Uint8Array, Error | null] {
             return [arr, err]
         }
     }
+}
+
+/**
+ * Closer is the interface that wraps the basic Close method.
+ * 
+ * The behavior of Close after the first call is undefined.
+ * Specific implementations may document their own behavior.
+ */
+export interface Closer {
+	Close(): Error | null
+}
+
+/**
+ * Seeker is the interface that wraps the basic Seek method.
+ * 
+ * Seek sets the offset for the next Read or Write to offset,
+ * interpreted according to whence:
+ * [SeekStart] means relative to the start of the file,
+ * [SeekCurrent] means relative to the current offset, and
+ * [SeekEnd] means relative to the end
+ * (for example, offset = -2 specifies the penultimate byte of the file).
+ * Seek returns the new offset relative to the start of the
+ * file or an error, if any.
+ * 
+ * Seeking to an offset before the start of the file is an error.
+ * Seeking to any positive offset may be allowed, but if the new offset exceeds
+ * the size of the underlying object the behavior of subsequent I/O operations
+ * is implementation-dependent.
+ */
+export interface Seeker {
+    Seek(offset: number, whence: number): [number, Error]
 }

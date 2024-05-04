@@ -1,7 +1,7 @@
 // Decodes a LZW-encoded buffer (LSB first)
 // Taken from https://cs.opensource.google/go/go/+/refs/tags/go1.21.3:src/compress/lzw/reader.go;l=254
-import { uint8Copy } from "../builtins/tshelpers/arrays"
-import { ByteReader, Errors as IOErrors, Reader } from "../io"
+import { uint8Copy } from "../../builtins/tshelpers/arrays"
+import { ByteReader, Errors as IOErrors, Reader, ReadCloser, Closer } from "../../io"
 
 const maxWidth = 12
 const decoderInvalidCode = 0xffff
@@ -15,7 +15,11 @@ export enum Order {
     MSB
 }
 
-export class LZWReader implements Reader {
+/** 
+ * Reader is an io.Reader which can be used to read compressed data in the
+ * LZW format.
+ */
+export class LZWReader implements Reader, Closer {
     r: ByteReader
     bits: number = 0 // uint32
     nBits: number = 0// uint
@@ -265,8 +269,35 @@ export class LZWReader implements Reader {
 
     // Close closes the Reader and returns an error for any future read operation.
     // It does not close the underlying io.Reader.
-    close(): [Error | null] {
+    Close(): Error | null {
         this.err = new Error("lzw: reader/writer is closed")
-        return [null]
+        return null
     }
+}
+
+function newReader(r: ByteReader, order: Order, litWidth: number): LZWReader {
+    return new LZWReader(r, order, litWidth)
+}
+
+/**
+ * NewReader creates a new [io.ReadCloser].
+ * Reads from the returned [io.ReadCloser] read and decompress data from r.
+ * If r does not also implement [io.ByteReader],
+ * the decompressor may read more data than necessary from r.
+ * It is the caller's responsibility to call Close on the ReadCloser when
+ * finished reading.
+ * The number of bits to use for literal codes, litWidth, must be in the
+ * range [2,8] and is typically 8. It must equal the litWidth
+ * used during compression.
+ * 
+ * It is guaranteed that the underlying type of the returned [io.ReadCloser]
+ * is a *[Reader].
+ * 
+ * @param r The reader
+ * @param order Order of LSW implementation
+ * @param litWidth The width of the literal codes
+ * @returns 
+ */
+export function NewReader(r: ByteReader, order: Order, litWidth: number): ReadCloser {
+	return newReader(r, order, litWidth)
 }

@@ -1,5 +1,5 @@
-import { byte, int } from '../internal/tshelpers/baseTypes'
-import { IndexByte as ib, IndexByteString as ibs } from '../internal/tshelpers/bytealg'
+import { byte, int } from '../internal/core/baseTypes'
+import { IndexByte as ib, IndexByteString as ibs } from '../internal/core/bytealg'
 
 /**
  * IndexByte returns the index of the first instance of c in b, or -1 if c is not present in b.

@@ -1,9 +1,9 @@
 // A set of core IO primitizes commonly used in Go
 
-import { bytesFromString, mergeUint8Arrays } from "../internal/tshelpers/arrays"
-import { byte, int, int64, nil, error } from '../internal/tshelpers/baseTypes';
-import { rune } from "../internal/tshelpers/rune"
-import { is } from "../internal/tshelpers/tsGuards"
+import { bytesFromString, mergeUint8Arrays } from "../internal/core/arrays"
+import { byte, int, int64, nil, error } from '../internal/core/baseTypes';
+import { rune } from "../internal/core/rune"
+import { is } from "../internal/core/tsGuards"
 
 // Seek whence values.
 export const SeekStart = 0 // seek relative to the origin of the file

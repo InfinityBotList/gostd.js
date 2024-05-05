@@ -2,9 +2,9 @@
  * Provides io.Multi*
  */
 
-import { bytesFromString } from "../internal/tshelpers/arrays";
-import { error, int, int64 } from "../internal/tshelpers/baseTypes";
-import { is } from "../internal/tshelpers/tsGuards";
+import { bytesFromString } from "../internal/core/arrays";
+import { error, int, int64 } from "../internal/core/baseTypes";
+import { is } from "../internal/core/tsGuards";
 import { CopyBuffer, Errors, Reader, StringWriter, Writer, WriterTo } from "./io";
 
 class eofReader implements Reader {

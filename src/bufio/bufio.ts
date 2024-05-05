@@ -5,10 +5,10 @@
  */
 
 import { Reader as ioReader, Writer as ioWriter, Errors as ioError, ByteReader, RuneScanner, RuneReader, WriterTo, ReaderFrom } from '../io/io';
-import { uint8Copy } from "../internal/tshelpers/arrays"
-import { is } from "../internal/tshelpers/tsGuards";
-import { RuntimeErrors, byte, error, int, int64, max } from "../internal/tshelpers/baseTypes";
-import { rune } from '../internal/tshelpers/rune';
+import { uint8Copy } from "../internal/core/arrays"
+import { is } from "../internal/core/tsGuards";
+import { RuntimeErrors, byte, error, int, int64, max } from "../internal/core/baseTypes";
+import { rune } from '../internal/core/rune';
 import * as bytes from '../bytes/bytes';
 
 // default buf size

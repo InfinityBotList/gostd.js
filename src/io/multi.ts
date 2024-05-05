@@ -157,7 +157,7 @@ export function MultiWriter(...writers: Writer[]): Writer & StringWriter {
 
     for(let writer of writers) {
         if(is<multiWriter>(writer, '__isInternalMultiWriter')) {
-            w.push(...(writer as multiWriter).__writers)
+            w.push(...writer.__writers)
         } else {
             w.push(writer)
         }

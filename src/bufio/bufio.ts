@@ -34,10 +34,8 @@ const maxConsecutiveEmptyReads = 100
  */
 export function NewReaderSize(rd: ioReader, size: number): Reader {
     // Is it already a Reader?
-    // @ts-ignore
-    let b: Reader = rd;
-    if(is<Reader>(rd, "__isBufioReader") && b.__buf.length >= size) {
-        return b;
+    if(is<Reader>(rd, "__isBufioReader") && rd.__buf.length >= size) {
+        return rd;
     }
 
     let r = new Reader(new Uint8Array(max(size, minReadBufferSize)), rd);
@@ -97,7 +95,6 @@ export class Reader implements ioReader, ByteReader, RuneReader, RuneScanner, Wr
         // Different layers of code may do that, and then later pass r
         // to Reset. Avoid infinite recursion in that case.
         
-        // @ts-ignore
         if(this == r) {
             return;
         }

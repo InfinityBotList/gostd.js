@@ -426,11 +426,11 @@ function copyBuffer(dst: Writer, src: Reader, buf?: Uint8Array | null): [number,
         let size = 32 * 1024 
 
         // Check if LimitedReader [https://cs.opensource.google/go/go/+/master:src/io/io.go;l=419]
-        if(is<LimitedReader>(src, "__isLimitedReader") && size > src.n) {
-            if(src.n < 1) {
+        if(is<LimitedReader>(src, "__isLimitedReader") && size > src.__n) {
+            if(src.__n < 1) {
                 size = 1
             } else {
-                size = src.n
+                size = src.__n
             }
         }
 
@@ -495,11 +495,15 @@ export function LimitReader(r: Reader, n: number): Reader {
 export class LimitedReader implements Reader {
     __isLimitedReader: boolean = true // JS doesn't support typecases: https://cs.opensource.google/go/go/+/master:src/io/io.go;l=407
     private r: Reader
-    n: number
+    private n: number
 
     constructor(r: Reader, n: number) {
         this.r = r
         this.n = n
+    }
+
+    get __n(): number {
+        return this.n
     }
 
     Read(p: Uint8Array): [number, error] {

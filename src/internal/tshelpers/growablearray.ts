@@ -15,7 +15,6 @@ export class GrowableUint8Array {
     }
 
     get length(): number {
-        console.log("Length", this._length)
         return this._length;
     }
 

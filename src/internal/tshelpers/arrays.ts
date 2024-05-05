@@ -31,3 +31,6 @@ export function mergeUint8Arrays(arrays: Uint8Array[]): Uint8Array {
     return merged;
 }  
 
+export function bytesFromString(s: string): Uint8Array {
+    return new TextEncoder().encode(s)
+}

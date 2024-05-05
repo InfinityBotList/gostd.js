@@ -1,6 +1,6 @@
 import * as fs from 'node:fs'
 import { LZWReader, Order } from '../../compress/lzw/reader'
-import * as io from '../../io'
+import * as io from '../../io/io'
 import { Buffer as GoBuffer } from '../tshelpers/buffer'
 
 const readLzwFile = (path: string) => {

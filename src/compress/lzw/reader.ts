@@ -1,6 +1,6 @@
 // Decodes a LZW-encoded buffer (LSB first)
 // Taken from https://cs.opensource.google/go/go/+/refs/tags/go1.21.3:src/compress/lzw/reader.go;l=254
-import { uint8Copy } from "../../builtins/tshelpers/arrays"
+import { uint8Copy } from "../../internal/tshelpers/arrays"
 import { ByteReader, Errors as IOErrors, Reader, ReadCloser, Closer } from "../../io"
 
 const maxWidth = 12
@@ -242,7 +242,7 @@ export class LZWReader implements Reader, Closer {
 
             if(this.hi >= this.overflow) {
                 if(this.hi > this.overflow) {
-                    throw new Error("Unreachable") // panic("unreachable")
+                    throw new Error("unreachable") // panic("unreachable")
                 }
 
                 if(this.width == maxWidth) {

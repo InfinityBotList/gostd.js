@@ -1,6 +1,9 @@
-import * as io from "../../io"
+import * as io from "../../io/io"
+import { int64 } from "./baseTypes"
 
 /**
+ * A Buffer is a variable-sized buffer of bytes with Read and Write methods.
+ * 
  * An implementation of Go's io.ByteReader interface
  */
 export class Buffer implements io.ByteReader, io.Reader, io.ReaderAt, io.ReaderFrom, io.ByteWriter, io.Writer, io.WriterAt, io.WriterTo {
@@ -48,7 +51,7 @@ export class Buffer implements io.ByteReader, io.Reader, io.ReaderAt, io.ReaderF
     }
 
     // ReadAt reads len(p) bytes into p starting at offset off in the underlying input source
-    ReadAt(p: Uint8Array, off: number): [number, Error | null] {
+    ReadAt(p: Uint8Array, off: int64): [int64, Error | null] {
         let n = this.buf.length
         if (n == 0) {
             return [0, new Error(io.Errors.EOF)]

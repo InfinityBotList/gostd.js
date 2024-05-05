@@ -1,7 +1,7 @@
 // Decodes a LZW-encoded buffer (LSB first)
 // Taken from https://cs.opensource.google/go/go/+/refs/tags/go1.22.2:src/compress/lzw/writer.go;l=254
-import { uint8Copy } from "../../builtins/tshelpers/arrays"
-import { ByteReader, ByteWriter, Errors as IOErrors, Reader } from "../../io"
+import { uint8Copy } from "../../internal/tshelpers/arrays"
+import { ByteReader, ByteWriter, Errors as IOErrors, Reader } from "../../io/io"
 
 // A writer is a buffered, flushable writer.
 interface writer {
